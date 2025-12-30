@@ -1,0 +1,40 @@
+package precisiondraw;
+
+import java.util.Scanner;
+
+public class GameMenu {
+    private Scanner sc = new Scanner(System.in);
+
+    public void start() {
+        boolean running = true;
+        while (running) {
+            System.out.println("=== Precision Draw ===");
+            System.out.println("1. Draw cards");
+            System.out.println("2. Draw cards with total");
+            System.out.println("3. Exit");
+
+            int choice = sc.nextInt();
+            if (choice == 1) drawOnly();
+            else if (choice == 2) drawWithTotal();
+            else running = false;
+        }
+    }
+
+    private void drawOnly() {
+        Deck deck = new Deck();
+        for (int i = 0; i < 5; i++) {
+            System.out.println(deck.draw());
+        }
+    }
+
+    private void drawWithTotal() {
+        Deck deck = new Deck();
+        Card[] hand = new Card[3];
+        for (int i = 0; i < 3; i++) {
+            hand[i] = deck.draw();
+            System.out.println(hand[i]);
+        }
+        System.out.println("Total: " +
+                CardValueCalculator.calculateTotal(hand, 3));
+    }
+}

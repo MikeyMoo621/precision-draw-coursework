@@ -11,7 +11,8 @@ public class GameMenu {
             System.out.println("=== Precision Draw ===");
             System.out.println("1. Draw cards");
             System.out.println("2. Draw cards with total");
-            System.out.println("3. Exit");
+            System.out.println("3. Guess cards");
+            System.out.println("4. Exit");
 
             int choice = sc.nextInt();
             if (choice == 1) drawOnly();
@@ -37,4 +38,21 @@ public class GameMenu {
         System.out.println("Total: " +
                 CardValueCalculator.calculateTotal(hand, 3));
     }
+
+    private void playGuessingGame() {
+        Player p = new Player("Player");
+        Deck deck = new Deck();
+
+        int guess = p.guessCards(sc);
+        Card[] hand = new Card[guess];
+
+        for (int i = 0; i < guess; i++) {
+            hand[i] = deck.draw();
+            System.out.println(hand[i]);
+        }
+
+        System.out.println("Total: " +
+                CardValueCalculator.calculateTotal(hand, guess));
+    }
+
 }

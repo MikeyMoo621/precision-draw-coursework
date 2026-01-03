@@ -13,13 +13,15 @@ public class GameMenu {
             System.out.println("2. Draw cards with total");
             System.out.println("3. Guess cards");
             System.out.println("4. Play scored round");
-            System.out.println("5. Exit");
+            System.out.println("5. Two-player match");
+            System.out.println("6. Exit");
 
             int choice = sc.nextInt();
             if (choice == 1) drawOnly();
             else if (choice == 2) drawWithTotal();
             else if (choice == 3) playGuessingGame();
             else if (choice == 4) playScoredRound();
+            else if (choice == 5) playMatch();
             else running = false;
         }
     }
@@ -74,5 +76,17 @@ public class GameMenu {
         int score = round.calculateScore(hand, guess);
         System.out.println("Score change: " + score);
     }
+
+    private void playMatch() {
+        System.out.print("Player 1 name: ");
+        Player p1 = new Player(sc.next());
+
+        System.out.print("Player 2 name: ");
+        Player p2 = new Player(sc.next());
+
+        Match match = new Match(p1, p2);
+        match.play(sc);
+    }
+
 
 }

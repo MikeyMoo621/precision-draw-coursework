@@ -14,5 +14,11 @@ public class Round {
         if (total < target) return target - total;
         return 2 * (total - target);
     }
+
+    public boolean isUnderOrEqual(Card[] hand, int count) {
+        int total = CardValueCalculator.calculateTotal(hand, count);
+        return total <= target;
+    }
+
 }
 

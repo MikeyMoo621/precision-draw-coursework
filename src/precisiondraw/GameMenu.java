@@ -4,6 +4,8 @@ import java.util.Scanner;
 
 public class GameMenu {
     private Scanner sc = new Scanner(System.in);
+    private Leaderboard leaderboard = new Leaderboard();
+
 
     public void start() {
         boolean running = true;
@@ -15,7 +17,8 @@ public class GameMenu {
             System.out.println("4. Play scored round");
             System.out.println("5. Two-player match");
             System.out.println("6. Play vs Computer");
-            System.out.println("7. Exit");
+            System.out.println("7. View Leaderboard");
+            System.out.println("8. Exit");
 
             int choice = sc.nextInt();
             if (choice == 1) drawOnly();
@@ -24,6 +27,7 @@ public class GameMenu {
             else if (choice == 4) playScoredRound();
             else if (choice == 5) playMatch();
             else if (choice == 6) playVsComputer();
+            else if (choice == 7) viewLeaderboard();
             else running = false;
         }
     }
@@ -86,7 +90,7 @@ public class GameMenu {
         System.out.print("Player 2 name: ");
         Player p2 = new Player(sc.next());
 
-        Match match = new Match(p1, p2);
+        Match match = new Match(p1, p2, leaderboard);
         match.play(sc);
     }
 
@@ -96,9 +100,14 @@ public class GameMenu {
 
         Player computer = new SimulatedPlayer("Computer");
 
-        Match match = new Match(human, computer);
+        Match match = new Match(human, computer, leaderboard);
         match.play(sc);
     }
+
+    private void viewLeaderboard() {
+        leaderboard.display();
+    }
+
 
 
 

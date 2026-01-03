@@ -8,14 +8,18 @@ public class Match {
     private Player player1;
     private Player player2;
 
+    private Leaderboard leaderboard;
+
     private int target = 40;
     private int score1 = 0;
     private int score2 = 0;
 
-    public Match(Player p1, Player p2) {
+    public Match(Player p1, Player p2, Leaderboard leaderboard) {
         this.player1 = p1;
         this.player2 = p2;
+        this.leaderboard = leaderboard;
     }
+
 
     public void play(Scanner sc) {
         Random rand = new Random();
@@ -45,15 +49,8 @@ public class Match {
             if (second instanceof SimulatedPlayer) {
                 secondGuess = ((SimulatedPlayer) second).guessSecond(firstGuess);
             } else {
-                do {
-                    secondGuess = second.guessCards(sc);
-                    if (secondGuess < firstGuess + 2) {
-                        System.out.println("Second player must choose at least "
-                                + (firstGuess + 2) + " cards.");
-                    }
-                } while (secondGuess < firstGuess + 2);
+                secondGuess = second.guessCards(sc);
             }
-
 
             Card[] firstHand = drawHand(deck, firstGuess);
             Card[] secondHand = drawHand(deck, secondGuess);
@@ -84,6 +81,13 @@ public class Match {
                 target -= 5;
                 System.out.println("Both over target. Target decreased to " + target);
             }
+
+            if (score1 < score2) {
+                leaderboard.recordMatch(player1.getName(), player2.getName());
+            } else if (score2 < score1) {
+                leaderboard.recordMatch(player2.getName(), player1.getName());
+            }
+
 
             p1First = !p1First;
         }

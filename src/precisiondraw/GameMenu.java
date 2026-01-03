@@ -14,7 +14,8 @@ public class GameMenu {
             System.out.println("3. Guess cards");
             System.out.println("4. Play scored round");
             System.out.println("5. Two-player match");
-            System.out.println("6. Exit");
+            System.out.println("6. Play vs Computer");
+            System.out.println("7. Exit");
 
             int choice = sc.nextInt();
             if (choice == 1) drawOnly();
@@ -22,6 +23,7 @@ public class GameMenu {
             else if (choice == 3) playGuessingGame();
             else if (choice == 4) playScoredRound();
             else if (choice == 5) playMatch();
+            else if (choice == 6) playVsComputer();
             else running = false;
         }
     }
@@ -87,6 +89,17 @@ public class GameMenu {
         Match match = new Match(p1, p2);
         match.play(sc);
     }
+
+    private void playVsComputer() {
+        System.out.print("Enter your name: ");
+        Player human = new Player(sc.next());
+
+        Player computer = new SimulatedPlayer("Computer");
+
+        Match match = new Match(human, computer);
+        match.play(sc);
+    }
+
 
 
 }

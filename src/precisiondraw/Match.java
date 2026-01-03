@@ -34,17 +34,26 @@ public class Match {
             Player first = p1First ? player1 : player2;
             Player second = p1First ? player2 : player1;
 
-            int firstGuess = first.guessCards(sc);
+            int firstGuess;
+            if (first instanceof SimulatedPlayer) {
+                firstGuess = ((SimulatedPlayer) first).guessFirst(target);
+            } else {
+                firstGuess = first.guessCards(sc);
+            }
 
             int secondGuess;
-            do {
-                secondGuess = second.guessCards(sc);
-                if (secondGuess < firstGuess + 2) {
-                    System.out.println(
-                            "Second player must choose at least "
-                                    + (firstGuess + 2) + " cards.");
-                }
-            } while (secondGuess < firstGuess + 2);
+            if (second instanceof SimulatedPlayer) {
+                secondGuess = ((SimulatedPlayer) second).guessSecond(firstGuess);
+            } else {
+                do {
+                    secondGuess = second.guessCards(sc);
+                    if (secondGuess < firstGuess + 2) {
+                        System.out.println("Second player must choose at least "
+                                + (firstGuess + 2) + " cards.");
+                    }
+                } while (secondGuess < firstGuess + 2);
+            }
+
 
             Card[] firstHand = drawHand(deck, firstGuess);
             Card[] secondHand = drawHand(deck, secondGuess);

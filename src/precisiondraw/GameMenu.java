@@ -11,23 +11,19 @@ public class GameMenu {
         boolean running = true;
         while (running) {
             System.out.println("=== Precision Draw ===");
-            System.out.println("1. Draw cards");
-            System.out.println("2. Draw cards with total");
-            System.out.println("3. Guess cards");
-            System.out.println("4. Play scored round");
-            System.out.println("5. Two-player match");
-            System.out.println("6. Play vs Computer");
-            System.out.println("7. View Leaderboard");
-            System.out.println("8. Exit");
+            System.out.println("1. Play scored round");
+            System.out.println("2. Two-player match");
+            System.out.println("3. Play vs Computer");
+            System.out.println("4. Run simulated games");
+            System.out.println("5. View Leaderboard");
+            System.out.println("6. Exit");
 
             int choice = sc.nextInt();
-            if (choice == 1) drawOnly();
-            else if (choice == 2) drawWithTotal();
-            else if (choice == 3) playGuessingGame();
-            else if (choice == 4) playScoredRound();
-            else if (choice == 5) playMatch();
-            else if (choice == 6) playVsComputer();
-            else if (choice == 7) viewLeaderboard();
+            if (choice == 1) playScoredRound();
+            else if (choice == 2) playMatch();
+            else if (choice == 3) playVsComputer();
+            else if (choice == 4) runSimulations();
+            else if (choice == 5) viewLeaderboard();
             else running = false;
         }
     }
@@ -107,6 +103,15 @@ public class GameMenu {
     private void viewLeaderboard() {
         leaderboard.display();
     }
+
+    private void runSimulations() {
+        System.out.print("Number of simulated games: ");
+        int count = sc.nextInt();
+
+        SimulationRunner runner = new SimulationRunner(leaderboard);
+        runner.runSimulations(count);
+    }
+
 
 
 

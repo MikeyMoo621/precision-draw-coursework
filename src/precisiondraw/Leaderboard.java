@@ -23,4 +23,24 @@ public class Leaderboard {
                     + " | Matches: " + s.matchesPlayed);
         }
     }
+
+    public PlayerStats getStats(String name) {
+        return players.get(name);
+    }
+
+    public void compare(String p1, String p2) {
+        PlayerStats s1 = players.get(p1);
+        PlayerStats s2 = players.get(p2);
+
+        if (s1 == null || s2 == null) {
+            System.out.println("One or both players not found.");
+            return;
+        }
+
+        System.out.println(p1 + " vs " + p2);
+        System.out.println("Wins: " + s1.wins + " | " + s2.wins);
+        System.out.println("Matches: " + s1.matchesPlayed + " | " + s2.matchesPlayed);
+    }
+
+
 }

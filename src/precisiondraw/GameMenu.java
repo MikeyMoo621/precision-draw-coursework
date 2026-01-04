@@ -16,7 +16,9 @@ public class GameMenu {
             System.out.println("3. Play vs Computer");
             System.out.println("4. Run simulated games");
             System.out.println("5. View Leaderboard");
-            System.out.println("6. Exit");
+            System.out.println("6. Search Player");
+            System.out.println("7. Compare Players");
+            System.out.println("8. Exit");
 
             int choice = sc.nextInt();
             if (choice == 1) playScoredRound();
@@ -24,6 +26,8 @@ public class GameMenu {
             else if (choice == 3) playVsComputer();
             else if (choice == 4) runSimulations();
             else if (choice == 5) viewLeaderboard();
+            else if (choice == 6) searchPlayer();
+            else if (choice == 7) comparePlayers();
             else running = false;
         }
     }
@@ -111,6 +115,28 @@ public class GameMenu {
         SimulationRunner runner = new SimulationRunner(leaderboard);
         runner.runSimulations(count);
     }
+
+    private void searchPlayer() {
+        System.out.print("Enter player name: ");
+        String name = sc.next();
+        PlayerStats stats = leaderboard.getStats(name);
+
+        if (stats == null) {
+            System.out.println("Player not found.");
+        } else {
+            System.out.println("Wins: " + stats.wins);
+            System.out.println("Matches: " + stats.matchesPlayed);
+        }
+    }
+
+    private void comparePlayers() {
+        System.out.print("First player: ");
+        String p1 = sc.next();
+        System.out.print("Second player: ");
+        String p2 = sc.next();
+        leaderboard.compare(p1, p2);
+    }
+
 
 
 
